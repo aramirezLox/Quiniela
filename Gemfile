@@ -26,7 +26,7 @@ gem "stimulus-rails"
 gem 'simple_form'
 gem 'annotate'
 gem 'devise'
-
+ gem "letter_opener", group: :development
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 

@@ -5,23 +5,32 @@ class PredictionsController < ApplicationController
   def index
     @predictions = Prediction.all
     @matches = Match.all
+    @summary_points = User.all.map do |user|
+      {
+        email: user.email,
+        points: user.predictions.pluck(:points).compact.reduce(:+)
+      }
+    end
+    puts '..............................'
+    puts @summary_points
   end
 
   # GET /predictions/1 or /predictions/1.json
   def show
-    @matches = Match.all
+    #   @user = User.new
+    #   @prediction = Prediction.all
+    #   if @user == @prediction.user
+    #     puts prediction.user.email, prediction.points
+    #   end
   end
 
   # GET /predictions/new
   def new
     @prediction = Prediction.new
-    @matches = Match.all
   end
 
   # GET /predictions/1/edit
-  def edit
-  @matches = Match.all
-  end
+  def edit; end
 
   # POST /predictions or /predictions.json
   def create
@@ -70,6 +79,6 @@ class PredictionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def prediction_params
-    params.require(:prediction).permit(:user_id_id, :bed, :match_id_id, :points)
+    params.require(:prediction).permit(:user_id, :bed, :match_id, :points)
   end
 end

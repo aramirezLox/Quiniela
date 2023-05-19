@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 class Score < ApplicationRecord
-  belongs_to :club_i, class_name: 'Club'
+  belongs_to :club_id, class_name: 'Club'
 
 end
 

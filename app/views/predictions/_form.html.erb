@@ -4,21 +4,13 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.association :user, label_method: :email%>
+    <%= f.association :user, label_method: :email %>
     <%= f.input :bed %>
-    <%= f.association :match%>
+    <%= f.association :match, label_method: :plenary%>
     <%= f.input :points %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
-
-  <div id="matches">
-    <% @matches.each do |match|%>
-    <%=render match%>
-    <%end%>
-  </div>
-
 <% end %>
-

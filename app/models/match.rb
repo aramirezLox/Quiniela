@@ -14,7 +14,6 @@
 class Match < ApplicationRecord
   belongs_to :local, class_name: 'Club'
   belongs_to :visitor, class_name: 'Club'
-
   has_many :predictions, class_name: 'Prediction'
 
   validates :local, presence: true
@@ -23,6 +22,7 @@ class Match < ApplicationRecord
   validate :date_validity
 
   after_update :add_points
+  after_update :view_points
 
   def different_names
     return unless local&.name == visitor&.name
@@ -43,4 +43,10 @@ class Match < ApplicationRecord
       prediction.save
     end
   end
+
+  def view_points
+    predictions.each do |prediction|
+      return prediction.user.email, prediction.points
+  end
+end
 end

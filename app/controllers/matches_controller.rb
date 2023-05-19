@@ -1,5 +1,5 @@
 class MatchesController < ApplicationController
-  before_action :set_match, only: %i[ show edit update destroy ]
+  before_action :set_match, only: %i[show edit update destroy]
 
   # GET /matches or /matches.json
   def index
@@ -7,27 +7,27 @@ class MatchesController < ApplicationController
   end
 
   # GET /matches/1 or /matches/1.json
-  def show
-  end
+  def show; end
 
   # GET /matches/new
   def new
     @match = Match.new
+    @user = User.new
   end
 
   # GET /matches/1/edit
   def edit
     @predictions = Prediction.all
-    
   end
 
   # POST /matches or /matches.json
   def create
     @match = Match.new(match_params)
-
+    @user = current_user
     respond_to do |format|
       if @match.save
-        format.html { redirect_to match_url(@match), notice: "Match was successfully created." }
+        MatchMailer.published_email(@user, @match).deliver_now
+        format.html { redirect_to match_url(@match), notice: 'Match was successfully created.' }
         format.json { render :show, status: :created, location: @match }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class MatchesController < ApplicationController
   def update
     respond_to do |format|
       if @match.update(match_params)
-        format.html { redirect_to match_url(@match), notice: "Match was successfully updated." }
+        format.html { redirect_to match_url(@match), notice: 'Match was successfully updated.' }
         format.json { render :show, status: :ok, location: @match }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,19 +54,20 @@ class MatchesController < ApplicationController
     @match.destroy
 
     respond_to do |format|
-      format.html { redirect_to matches_url, notice: "Match was successfully destroyed." }
+      format.html { redirect_to matches_url, notice: 'Match was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_match
-      @match = Match.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def match_params
-      params.require(:match).permit(:local_id, :visitor_id, :result, :plenary, :match_date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_match
+    @match = Match.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def match_params
+    params.require(:match).permit(:local_id, :visitor_id, :result, :plenary, :match_date)
+  end
 end

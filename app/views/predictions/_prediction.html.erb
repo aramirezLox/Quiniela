@@ -1,7 +1,7 @@
 <div id="<%= dom_id prediction %>">
   <p>
     <strong>User:</strong>
-    <%= prediction.user%>
+    <%= prediction.user.email %>
   </p>
 
   <p>
@@ -11,12 +11,12 @@
 
   <p>
     <strong>Match:</strong>
-    <%= prediction.match %>
+    <%= prediction.match.plenary %>
   </p>
 
   <p>
     <strong>Points:</strong>
-    <%= prediction.points %>
+    <%= prediction.points%>
   </p>
 
 </div>

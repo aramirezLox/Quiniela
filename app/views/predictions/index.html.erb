@@ -1,8 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
+<div id="index_predictions" style="display: flex">
+<div id="predictions" style="display: grid">
 <h1>Predictions</h1>
 
-<div id="predictions">
   <% @predictions.each do |prediction| %>
     <%= render prediction %>
     <p>
@@ -11,6 +12,17 @@
   <% end %>
 </div>
 
-
-
 <%= link_to "New prediction", new_prediction_path %>
+
+  <div style="display: grid">
+    <h2>Matches</h2>
+      <% @matches.each do |match| %>
+        <%= render match %>
+      <%end%>
+  </div>
+
+  <div style="display:grid">
+    <h2>Users</h2>
+      <%=@summary_points.first%>
+  </div>
+</div>
