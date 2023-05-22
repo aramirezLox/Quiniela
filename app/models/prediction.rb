@@ -4,6 +4,8 @@ class Prediction < ApplicationRecord
 
   validates :points, presence: true
 
-  
+  def match_label
+    "L: #{match.local.name} vs V: #{match.visitor.name}"
+  end
 
 end

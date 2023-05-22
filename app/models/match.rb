@@ -47,6 +47,10 @@ class Match < ApplicationRecord
   def view_points
     predictions.each do |prediction|
       return prediction.user.email, prediction.points
+    end
   end
-end
+
+  def match_label
+    "#{local.name} vs #{visitor.name}"
+  end
 end

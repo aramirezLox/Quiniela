@@ -4,7 +4,7 @@ class MatchMailer < ApplicationMailer
 
   def published_email(user, result)
     puts '-----------------------------------'
-    @match = result.plenary
+    @match = match_label
     @user = user.email
     puts @user
     mail(to: @user, subject: 'Wathing the result of match')

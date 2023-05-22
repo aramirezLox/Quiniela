@@ -21,8 +21,13 @@
       <%end%>
   </div>
 
-  <div style="display:grid">
+  <div >
     <h2>Users</h2>
-      <%=@summary_points.first%>
+    <p>
+      User: <%=@summary_points.first[:email]%>
+    </p>
+    <p>
+      Points: <%=@summary_points.first[:points]%>
+    </p>
   </div>
 </div>
